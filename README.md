@@ -69,7 +69,23 @@ Caso você tenha iniciado o serviço como root, é preciso executar o docker-com
       $
     ```
 
-### Usando volumes e scripts de banco de dados
+### Volumes
 
 1. Criado o script de inicialização do banco de daos
 2. Configurado o banco no compose
+
+### Frontend
+
+1. Criado index.html
+2. Adicionado frontend no composer
+3. Verificado logs da aplicação:
+   ```bash
+     $ docker-compose logs -f -t 
+     Attaching to emailworker_frontend_1, emailworker_db_1
+     db_1        | 2017-09-27T14:53:31.121697926Z LOG:  database system was shut down at 2017-09-27 14:50:38 UTC
+     db_1        | 2017-09-27T14:53:31.125151933Z LOG:  MultiXact member wraparound protections are now enabled
+     db_1        | 2017-09-27T14:53:31.129513845Z LOG:  database system is ready to accept connections
+     db_1        | 2017-09-27T14:53:31.130606654Z LOG:  autovacuum launcher started
+     frontend_1  | 2017-09-27T14:55:00.095626741Z 172.19.0.1 - - [27/Sep/2017:14:55:00 +0000] "GET / HTTP/1.1" 200 606 "-"...
+     $
+   ```

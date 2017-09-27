@@ -3,12 +3,19 @@ volumes:
   dados:
 services:
   db:
-      image: postgres:9.6
-      volumes:
-        # Volume dos dados
-        - dados:/var/lib/postgresql/data
-        # Scripts
-        - ./scripts:/scripts
-        # De acordo com a documentação do Postgres essa nomeclatura: /docker-entrypoint-initdb.d/
-        # permite rodar scripts de inicialização do banco de dados
-        - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    image: postgres:9.6
+    volumes:
+      # Volume dos dados
+      - dados:/var/lib/postgresql/data
+      # Scripts
+      - ./scripts:/scripts
+      # De acordo com a documentação do Postgres essa nomeclatura: /docker-entrypoint-initdb.d/
+      # permite rodar scripts de inicialização do banco de dados
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+  frontend:
+    image: nginx:1.13
+    volumes:
+      # Site
+      - ./web:/usr/share/nginx/html/
+    ports:
+      - 8000:80
