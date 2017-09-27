@@ -68,3 +68,8 @@ Caso você tenha iniciado o serviço como root, é preciso executar o docker-com
       Removing network emailworker_default
       $
     ```
+
+### Usando volumes e scripts de banco de dados
+
+1. Criado o script de inicialização do banco de daos
+2. Configurado o banco no compose
