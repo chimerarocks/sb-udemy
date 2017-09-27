@@ -89,3 +89,9 @@ Caso você tenha iniciado o serviço como root, é preciso executar o docker-com
      frontend_1  | 2017-09-27T14:55:00.095626741Z 172.19.0.1 - - [27/Sep/2017:14:55:00 +0000] "GET / HTTP/1.1" 200 606 "-"...
      $
    ```
+
+### Fila
+
+1. criado o script que irá instalar as bibliotecas python no container em app/app.sh
+2. criado o scritp em python que exibe o que foi recebedio pela aplicação
+3. criado o service no compose
