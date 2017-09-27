@@ -108,3 +108,7 @@ Para tornar as interações entre containers mais seguras é necessário reduzi-
 
 1. definida as redes e seus participantes no compose
 2. alterado o sender.py para que cadastre no banco as informações
+
+### Workers
+1. definido os services no composer
+2. criado service worker
