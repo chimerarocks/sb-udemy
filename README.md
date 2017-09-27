@@ -101,3 +101,10 @@ Caso você tenha iniciado o serviço como root, é preciso executar o docker-com
 1. criado a configuração do nginx
 2. mapeado o volume do arquivo de configuração do nginx do container para o do arquivo
 3. alterado a rota do formulário do index
+
+### Redes
+Para tornar as interações entre containers mais seguras é necessário reduzi-las o máximo possivel
+. Visto que por padrão todos os container estão em uma mesma rede é necessário definir redes segregadas.
+
+1. definida as redes e seus participantes no compose
+2. alterado o sender.py para que cadastre no banco as informações
