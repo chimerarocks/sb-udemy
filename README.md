@@ -95,3 +95,9 @@ Caso você tenha iniciado o serviço como root, é preciso executar o docker-com
 1. criado o script que irá instalar as bibliotecas python no container em app/app.sh
 2. criado o scritp em python que exibe o que foi recebedio pela aplicação
 3. criado o service no compose
+
+### Proxy Reverso
+
+1. criado a configuração do nginx
+2. mapeado o volume do arquivo de configuração do nginx do container para o do arquivo
+3. alterado a rota do formulário do index
