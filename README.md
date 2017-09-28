@@ -133,3 +133,8 @@ Para tornar as interações entre containers mais seguras é necessário reduzi-
 
 ### Override
 1. Criado um arquivo de sobreescrita do compose para personalizá-lo
+
+### Atualizações
+
+1. Como remover todos os containers:
+> sudo docker rm $(sudo docker ps -a -q)
