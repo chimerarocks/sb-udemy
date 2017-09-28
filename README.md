@@ -390,3 +390,69 @@ Para mais informações: http://redis.io/commands
     redis:6379> zrangebyscore zdogs 100 250
     1) "gizmo"
     ```
+    
+### Redis Storage Structures
+
+Classic Database
+    
+    * Tables
+    * Columns
+    * Relationships
+    * Indexes
+
+Redis
+    
+    * Keys
+    * Values (Data Types)
+    
+Então foi mostrado como se cria relacionamentos no Redis
+
+```bash
+redis:6379> hmset user:1 username josh gender male
+OK
+redis:6379> hmset user:2 username chris gender female
+OK
+redis:6379> hmset user:3 username chris2 gender male
+OK
+redis:6379> hgetall
+(error) ERR wrong number of arguments for 'hgetall' command
+redis:6379> hgetall user:1
+1) "username"
+2) "josh"
+3) "gender"
+4) "male"
+redis:6379> set username:josh user:1
+OK
+redis:6379> set username:chris user:2
+OK
+redis:6379> set username:chris2 user:3
+OK
+redis:6379> get username:josh
+"user:1"
+redis:6379> sadd names:josh user:1
+(integer) 1
+redis:6379> sadd names:chris user:2 user:3
+(integer) 2
+redis:6379> smembers names:chris
+1) "user:3"
+2) "user:2"
+redis:6379> sadd gender:male user:1 user:3
+(integer) 2
+redis:6379> sadd gender:female user:2
+(integer) 1
+redis:6379> sinter names:chris gender:male
+1) "user:3"
+redis:6379> hgetall user:3
+1) "username"
+2) "chris2"
+3) "gender"
+4) "male"
+redis:6379> zadd logins 1476070170914 user:1
+(integer) 1
+redis:6379> zadd logins 1474774243814 user:1
+(integer) 0
+redis:6379> zadd logins 1474774243814 user:2
+(integer) 1
+redis:6379> 
+```
+
