@@ -512,3 +512,6 @@ redis:6379> publish test 'Is anyone there?'
 
 1. foi criado uma aplicação em node que imita o redis-cli
 
+### Messaging
+
+Foi iniciado apps em portas diferentes para mostrar como se comunicam através do redis
