@@ -56,3 +56,107 @@ Foi explicado o que é o REDIS, que funciona como um banco de dados em memória.
     "value"
     redis:6379> 
     ```
+    
+
+
+### Redis Data Types
+
+Foi mostrado os tipos de dados mais usados no Redis: 
+    
+    String - o tipo mais comum, apenas um valor
+    Hashes - hashes são dados no estilo atributo:valor
+    Lists  - são coleções de dados ordenados segundo a inserção no final ou no inico da lista, podendo conter dados duplicados definidos por um indice
+    Sets   - são coleções de dados únicos que não possuem ordem
+    Sorted sets - são coleções de dados único que são ordenados baseado em um score
+
+1. Foi mostrado como adicionar/obter uma string para uma chave
+    ```bash
+    redis:6379> set user:1:username josh
+    OK
+    redis:6379> get user:1:username
+    "josh"
+    ```
+2. Foi mostrado como adicionar/obter uma hash
+    ```bash
+    redis:6379> hmset user:1 first_name Joshua last_name Johanan
+    OK
+    redis:6379> hgetall user:1
+    1) "first_name"
+    2) "Joshua"
+    3) "last_name"
+    4) "Johanan"
+    ```
+3. Foi mostrado como adicionar/obter dados em uma lista
+    ```bash
+    redis:6379> lpush user:1:profile_views 5
+    (integer) 1
+    redis:6379> lpush user:1:profile_views 10
+    (integer) 2
+    redis:6379> lpush user:1:profile_views 15
+    (integer) 3
+    redis:6379> lpush user:1:profile_views 18
+    (integer) 4
+    redis:6379> lrange user:1:profile_views 0 -1
+    1) "18"
+    2) "15"
+    3) "10"
+    4) "5"
+    redis:6379> lrange user:1:profile_views 0 2
+    1) "18"
+    2) "15"
+    3) "10"
+    ```
+4. Foi mostrado como adicionar/obter dados em um set
+    ```bash
+    redis:6379> sadd post:1:users 1 2
+    (integer) 2
+    redis:6379> sadd post:1:users 1
+    (integer) 0
+    redis:6379> smembers post:1:users
+    1) "1"
+    2) "2"
+    redis:6379> sadd post:1:users 3
+    (integer) 1
+    redis:6379> smembers post:1:users
+    1) "1"
+    2) "2"
+    3) "3"    
+    ```
+5. Foi mostrado como adcionar/obter dados em um ordered set
+    ```bash
+    redis:6379> zadd logins 500 1
+    (integer) 1
+    redis:6379> zadd logins 600 1
+    (integer) 0
+    redis:6379> zadd logins 600 15
+    (integer) 1
+    redis:6379> zadd logins 650 18
+    (integer) 1
+    redis:6379> zrange logins 0 -1
+    1) "1"
+    2) "15"
+    3) "18"
+    redis:6379> zadd logins 550 20
+    (integer) 1
+    redis:6379> zrange logins 0 -1
+    1) "20"
+    2) "1"
+    3) "15"
+    4) "18"
+    redis:6379> zrange logins 0 -1 WITHSCORES
+    1) "20"
+    2) "550"
+    3) "1"
+    4) "600"
+    5) "15"
+    6) "600"
+    7) "18"
+    8) "650"
+    redis:6379> zrevrange logins 0 -1
+    1) "18"
+    2) "15"
+    3) "1"
+    4) "20"
+    redis:6379> 
+    ```
+
