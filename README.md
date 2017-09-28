@@ -159,4 +159,234 @@ Foi mostrado os tipos de dados mais usados no Redis:
     4) "20"
     redis:6379> 
     ```
+### Redis Commands
+Para mais informações: http://redis.io/commands
 
+1. A Big O Notation:
+
+    O(1) - Significa que o comando leva a mesma quantidade de tempo independente da quantidade de inputs
+    
+    O(n) - Significa que o tempo de execução de um comando vária conforme o  número de  inputs
+    
+    É bom estar atento para o custo em mémoria de cada comando.
+
+2. foi mostrado algumas coisas que podem ser feitas com strings, todos são O(1):
+
+    Comandos: set, get, incr, exists, expire, ttl 
+    
+    Inserindo e obtendo uma string 
+    ```bash
+    redis:6379> set user:1 test
+    OK
+    redis:6379> get user:1
+    "test"
+    ```
+    Criando um contador (nesse caso a string deve ser um número)
+    ```bash
+    redis:6379> set counter 1
+    OK
+    redis:6379> incr counter
+    (integer) 2
+    redis:6379> get counter
+    "2"
+    redis:6379> incr user:1
+    (error) ERR value is not an integer or out of range
+    redis:6379> exists user:1
+    (integer) 1
+    ```
+    
+    Verificando/Removendo uma string
+    ```bash
+    redis:6379> exists no
+    (integer) 0
+    redis:6379> expire user:1 1
+    (integer) 1
+    redis:6379> get user:1
+    (nil)
+    ```
+    
+    Inserindo uma string, somente, por um tempo determinado
+    ```bash
+    redis:6379> set test_key test EX 120
+    OK
+    redis:6379> ttl test_key
+    (integer) 116
+    redis:6379> ttl test_key
+    (integer) 113
+    redis:6379> ttl test_key
+    (integer) 103
+    redis:6379> ttl test_key
+    (integer) 84
+    redis:6379> ttl test_key
+    (integer) 45
+    redis:6379> get test_key
+    "test"
+    redis:6379> ttl test_key
+    (integer) 1
+    redis:6379> ttl test_key
+    (integer) -2
+    redis:6379> ttl test_key
+    (integer) -2
+    redis:6379> ttl test_key
+    (integer) -2
+    redis:6379> get test_key
+    (nil)
+    redis:6379> 
+    ```
+3. foi mostrado algumas coisas que podem ser feitas com hashs:
+
+    Comandos: hset, hget, hmset, hgetall, hkeys, expire
+
+    Definindo uma hash:
+    
+    * Você pode definir uma hash com hset ou com multiplos atributos usando hmset
+    * hset são comandos O(1)
+    * hmset são comandos O(n)
+    ```bash
+    redis:6379> hset hash_key field value
+    (integer) 1
+    redis:6379> hget hash_key field
+    "value"
+    redis:6379> hmset has_key first 1 second 2
+    OK
+    redis:6379> hgetall hash_key
+    1) "field"
+    2) "value"
+    redis:6379> hgetall has_key
+    1) "first"
+    2) "1"
+    3) "second"
+    4) "2"
+    redis:6379> hkeys has_key
+    1) "first"
+    2) "second"
+    redis:6379> hset hash_key field value
+    (integer) 0
+    redis:6379> hget hash_key field
+    "value"
+    redis:6379> expire hash_key
+    (error) ERR wrong number of arguments for 'expire' command
+    redis:6379> expire hash_key 1
+    (integer) 1
+    redis:6379> expire has_key 1
+    (integer) 1
+    redis:6379> hset hash_key field value
+    (integer) 1
+    redis:6379> hget hash_key field
+    "value"
+    redis:6379> hmset hass_key first 1 second 2
+    OK
+    redis:6379> hgetall hash_key
+    1) "field"
+    2) "value"
+    redis:6379> hmset hash_key first 1 second 2
+    OK
+    redis:6379> hgetall hash_key
+    1) "field"
+    2) "value"
+    3) "first"
+    4) "1"
+    5) "second"
+    6) "2"
+    redis:6379> hkeys hash_key
+    1) "field"
+    2) "first"
+    3) "second"
+    ```
+4. foi mostrado alguns comandos com listas
+
+    Comandos: lpush, lrange, rpush
+
+    lpush e rpush são O(1), os outros são O(n)
+    ```bash
+    redis:6379> lpush dogs dexter
+    (integer) 1
+    redis:6379> lpush dogs gixmo
+    (integer) 2
+    redis:6379> lpush dogs gizmo
+    (integer) 3
+    redis:6379> lrange dogs 0 -1
+    1) "gizmo"
+    2) "gixmo"
+    3) "dexter"
+    redis:6379> rpush dogs fido
+    (integer) 4
+    redis:6379> lrange dogs 0 -1
+    1) "gizmo"
+    2) "gixmo"
+    3) "dexter"
+    4) "fido"
+    ```
+5. foi mostrado alguns comandos com sets
+
+    Comandos: sadd, smembers, sismember, srem, sadd, sdiff, sinter, sunion
+     
+    Note que utilizar os comandos de sdiff, sinter ou sunion não alteram o set de fato
+    
+    Todos os s* comandos são O(n)
+    
+    ```bash
+    redis:6379> sadd sdogs dexter
+    (integer) 1
+    redis:6379> sadd sdogs dexter
+    (integer) 0
+    redis:6379> sadd sdogs gizmo
+    (integer) 1
+    redis:6379> smembers sdogs
+    1) "gizmo"
+    2) "dexter"
+    redis:6379> sismember sdogs dexter
+    (integer) 1
+    redis:6379> sismember sdogs nothing
+    (integer) 0
+    redis:6379> srem sdogs dexter
+    (integer) 1
+    redis:6379> sismember sdogs dexter
+    (integer) 0
+    redis:6379> sadd sdogs dexter
+    (integer) 1
+    redis:6379> sadd dogs2 fido
+    (integer) 1
+    redis:6379> sadd dogs2 dexter
+    (integer) 1
+    redis:6379> sdiff sdogs dogs2
+    1) "gizmo"
+    redis:6379> sinter sdogs dogs2
+    1) "dexter"
+    redis:6379> sunion sdogs dogs2
+    1) "fido"
+    2) "gizmo"
+    3) "dexter"
+    redis:6379> smembers sdogs
+    1) "gizmo"
+    2) "dexter"
+    ```
+    
+6. foi mostrado alguns comandos a mais com ordered hashes:
+    
+    Comandos: zadd, zrange, zrangebyscore
+    
+    Todos os z* comandos são O(n)
+    ```bash
+    redis:6379> zadd zdogs 100 dexter
+    (integer) 1
+    redis:6379> zadd zdogs 200 gizmo
+    (integer) 1
+    redis:6379> zrange zdogs 0 -1
+    1) "dexter"
+    2) "gizmo"
+    redis:6379> zrange zdogs 0 -1 WITHSCORES
+    1) "dexter"
+    2) "100"
+    3) "gizmo"
+    4) "200"
+    redis:6379> zadd zdogs 300 dexter
+    (integer) 0
+    redis:6379> zrange zdogs 0 -1 WITHSCORES
+    1) "gizmo"
+    2) "200"
+    3) "dexter"
+    4) "300"
+    redis:6379> zrangebyscore zdogs 100 250
+    1) "gizmo"
+    ```
