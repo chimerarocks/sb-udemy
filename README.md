@@ -125,3 +125,8 @@ Para tornar as interações entre containers mais seguras é necessário reduzi-
         $ docker-compose logs -f -t worker 
         $
     ```
+
+### Boas práticas - variáveis de ambiente
+1. Definido váriaveis de ambiente 
+([OFF] como o código foi copiado do git ele já estava com essas definições nos commits anteriores)
+2. Personalizado o nome do banco no compose
