@@ -112,3 +112,16 @@ Para tornar as interações entre containers mais seguras é necessário reduzi-
 ### Workers
 1. definido os services no composer
 2. criado service worker
+
+### Múltiplas Instâncias
+1. criado um Dockerfile para o service worker e alterado sua confiruação no compose
+2. iniciado os service com escalando 3 workers
+    ```bash
+        $ docker-compose up -d --scale worker=3 
+        $
+    ```
+3. acompanhado o log somente dos workers
+    ```bash
+        $ docker-compose logs -f -t worker 
+        $
+    ```
