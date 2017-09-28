@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app:
+    image: node:8.1
+    volumes:
+      - ./app:/app
+    ports:
+      - 3000:8080
+    command: bash -c "cd /app && npm i && node index"
+    depends_on:
+      - packt-redis
+    links:
+      - packt-redis:redis
+  packt-redis:
+    image: redis:3.2.4

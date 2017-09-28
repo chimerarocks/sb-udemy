@@ -1,3 +1,5 @@
+git do curso https://github.com/johanan/Build-Complex-Express-Sites-with-Redis-and-Socket.io/
+
 ### REDIS_CLI
 
 Foi explicado o que é o REDIS, que funciona como um banco de dados em memória.
@@ -11,6 +13,8 @@ Foi explicado o que é o REDIS, que funciona como um banco de dados em memória.
     ```bash
     sudo docker run -it --link packt-redis:redis --rm redis redis-cli -h redis -p 6379
     ```
+    
+    Observe que o host para esse container será 'redis' por causa do link (redis-cli -h redis)
     
     Quanto a opção --link, ela funciona como meio de comunicação entre containers sem ter que 
     deixar portas abertas
@@ -455,4 +459,56 @@ redis:6379> zadd logins 1474774243814 user:2
 (integer) 1
 redis:6379> 
 ```
+
+### Channels and Subscribe
+
+Assinando um canal
+
+```bash
+redis:6379> subscribe user:create
+Reading messages... (press Ctrl-C to quit)
+1) "subscribe"
+2) "user:create"
+3) (integer) 1
+```
+
+Assinando qualquer canal baseado em um padrão
+```bash
+redis:6379> psubscribe user:*
+Reading messages... (press Ctrl-C to quit)
+1) "psubscribe"
+2) "user:*"
+3) (integer) 1
+```
+
+### Publish
+
+Foi mostrado como criar enviar uma mensagem entre um listener e um publisher
+
+1. se criou um listener em um canal (test):
+
+```bash
+subscribe test
+Reading messages... (press Ctrl-C to quit)
+1) "subscribe"
+2) "test"
+3) (integer) 1
+```
+
+2. então em um novo client publicou uma mensagem no canal test:
+```bash
+redis:6379> publish test 'Is anyone there?'
+(integer) 1
+```
+
+3. a mensagem chegou no listener:
+```bash
+1) "message"
+2) "test"
+3) "Is anyone there?"
+```
+
+### Simples Redis Integration
+
+1. foi criado uma aplicação em node que imita o redis-cli
 
