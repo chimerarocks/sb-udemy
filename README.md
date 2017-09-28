@@ -130,3 +130,6 @@ Para tornar as interações entre containers mais seguras é necessário reduzi-
 1. Definido váriaveis de ambiente 
 ([OFF] como o código foi copiado do git ele já estava com essas definições nos commits anteriores)
 2. Personalizado o nome do banco no compose
+
+### Override
+1. Criado um arquivo de sobreescrita do compose para personalizá-lo
