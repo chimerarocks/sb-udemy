@@ -178,3 +178,13 @@ image: redis
 docker run --name packt-redis -p 16379:6379 -d redis:3.2.4
 docker run -it --link packt-redis:redis --rm redis redis-cli -h redis -p 6379
 ```
+
+5. Criando uma imagem baseada em um Dockerfile
+```
+docker build -t [tag] [path do Dockerfile]
+```
+
+6. Iniciando o container em modo iterativo
+```
+docker run --name [nome] -it -p [host]:[container] -v [host]:[container] [image]
+```
