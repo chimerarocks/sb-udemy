@@ -138,3 +138,37 @@ Para tornar as interações entre containers mais seguras é necessário reduzi-
 
 1. Como remover todos os containers:
 > sudo docker rm $(sudo docker ps -a -q)
+
+2. Exemplo de um Dockerfile:
+```
+FROM node:0.10.38
+
+RUN mkdir /src
+
+RUN npm install nodemon -g
+
+WORKDIR /src
+ADD app/package.json /src/package.json
+RUN npm install
+
+ADD app/nodemon.json /src/nodemon.json
+
+EXPOSE 3000
+
+CMD npm start
+```
+
+3. Exemplo de um docker-compose.yml com link
+```
+web:
+  build: .
+  volumes:
+    - "./app:/src/app"
+  ports:
+    - "3030:3000"
+  links:
+    - "db:redis"
+
+db:
+image: redis
+```
