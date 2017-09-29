@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,16 +11,17 @@
 <ul id="list"></ul>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    /** em trasnports ele está dizendo que quer que a comunicação seja feita somente por websocket */
   var socket = io({transports: ['websocket'], upgrade: false});
+  var addLi = (message) => {
+    var li = document.createElement('li');
+    li.appendChild(document.createTextNode(message));
+    document.getElementById('list').appendChild(li);
+  };
   document.getElementById('send').addEventListener('click', (e) => {
     socket.emit('name', document.getElementById('name').value);
   });
-  socket.on('name', (name) => {
-    var li = document.createElement('li');
-    li.appendChild(document.createTextNode(name + ' says Hello!'));
-    document.getElementById('list').appendChild(li);
-  });
+  socket.on('name', (name) => addLi(name + ' says Hello!'));
+  socket.on('user.events', addLi);
 </script>
 </body>
 </html>

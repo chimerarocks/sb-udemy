@@ -555,3 +555,9 @@ a diferença entre socket e io é que o socket se refere somente ao socket que e
 
 o único problema nesta abordagem é que o comunicação e emitido também para o servidor,
 ou seja, ele está recebendo as mesmas mengagens como fosse um client
+
+### Broadcasting a message
+
+1. Foi criado um app para que mostre como enviar mensagens para todos os sockets
+conectadas menos o socket que envia
+
