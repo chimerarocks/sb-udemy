@@ -563,5 +563,9 @@ conectadas menos o socket que envia
 
 ### Using the disconnect event
 
-2. foi mostrado como usar o disconnect para mostrar quem saiu da sala, bem como 
+1. foi mostrado como usar o disconnect para mostrar quem saiu da sala, bem como 
 exibir mensagem quando ocorrer um erro.
+
+### What Are Rooms?
+
+1. foi criado duas salas e mostrado como as mensagens foram exibidas
