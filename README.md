@@ -539,4 +539,8 @@ Foi iniciado apps em portas diferentes para mostrar como se comunicam através d
 ### Installing Socket.io
 
 1. foi criado um app para mostrar em log a conexão entre o server e o client por um socket
-    * para conectar entre no inspector e chame a função io() 
+    * para conectar entre no inspector e chame a função io()
+     
+### Simple Socket.io application
+
+1. foi criado um app para mostrar a comunicação entre um server e um client
