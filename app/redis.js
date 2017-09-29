@@ -9,35 +9,33 @@ var REDIS_PORT = process.env.REDIS_PORT || 6379;
 //connect to redis
 var client = redis.createClient(REDIS_PORT, REDIS_HOST);
 
+var promiser = (resolve, reject) => {
+  return (err, data) => {
+    if(err) reject(err);
+    resolve(data);
+  };
+};
+
 var get = (key) => {
   return new Promise((resolve, reject) => {
-    client.get(key, (err, data) => {
-      if(err) reject(err);
-      resolve(data);
-    });
+    client.get(key, promiser(resolve, reject));
   });
 };
 
 var hgetall = (key) => {
   return new Promise((resolve, reject) => {
     if(key === null) reject();
-    client.hgetall(key, (err, data) => {
-      if(err) reject(err);
-      resolve(data);
-    });
+    client.hgetall(key, promiser(resolve, reject));
   });
 };
 
-var lrange = (key) => {
+var zrevrangebyscore = (key, max, min) => {
   return new Promise((resolve, reject) => {
-    client.lrange(key, [0, -1], (err, data) => {
-      if(err) reject(err);
-      resolve(data);
-    });
+    client.zrevrangebyscore(key, max, min, promiser(resolve, reject));
   });
 };
 
 module.exports.get = get;
 module.exports.hgetall = hgetall;
-module.exports.lrange = lrange;
+module.exports.zrevrangebyscore = zrevrangebyscore;
 module.exports.client = client;
