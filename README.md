@@ -591,3 +591,10 @@ Namespaces:
 
 Quando usar namespace ou rooms? Namespaces devem ser usados quando há distinção total de métodos, conexões e eventos. 
 Rooms fazem sentido quando você precisa apenas separar os clientes em espaços privados.
+
+### Share State Between Socket.io and Express
+
+Embora os dois framworks estejam no node, eles não se comunicam, por isso é necessário uma integração
+
+1. Foi mostrado como integrar o estado da aplicação com o socket.io e o express
+2. Foi mostrado na aplicação que quando a página é atualizada o brower salva o estado e lembra o nome 
