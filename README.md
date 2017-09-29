@@ -603,3 +603,7 @@ Embora os dois framworks estejam no node, eles não se comunicam, por isso é ne
 
 1. Foi criado um app para mostrar como a integração entre socket.io e express é complicado, 
 visto que eles não se comunicam não é possível injetar o socket nas rotas
+
+### Using routes with Socket.io and Express
+
+1. Foi mostrado que para cada página é necessário conectar a um socket diferente que executará os eventos para ela
