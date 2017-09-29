@@ -10,21 +10,11 @@ var io = socketio(server);
 
 app.use(express.static('static'));
 
-io.on('connection', (socket) => {
-  var now = Date.now();
-  console.log(now);
-  if((now % 2) == 0){
-    socket.join('even');
-  }else{
-    socket.join('odd');
-  }
+var namespace = io.of('/namespace');
 
-  io.to('even').emit('event', 'Even Room ' + now);
-  io.to('odd').emit('event', 'Odd Room ' + now);
-  setTimeout(() => {
-    io.to('even').emit('event', 'Even Room');
-    io.to('odd').emit('event', 'Odd Room');
-  }, 5000);
+namespace.on('connection', (socket) => {
+  namespace.emit('event', 'Connected to Namespace');
+  //this is a different namespace
+  io.emit('event', 'normal');
 });
-
 // Ao executar este código é necessário estar no diretório deste app por causa do static do express

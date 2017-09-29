@@ -569,3 +569,14 @@ exibir mensagem quando ocorrer um erro.
 ### What Are Rooms?
 
 1. foi criado duas salas e mostrado como as mensagens foram exibidas
+
+### What are Namespaces
+
+1. mostra como namespaces funcionam
+
+Namespaces:
+
+* Clientes podem conectar em um namespace espícifico
+* Pode criar módulos
+* Cria um namespace para eventos, como na programação
+* É possível ainda usar rooms dentro dos namespaces
