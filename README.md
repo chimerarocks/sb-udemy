@@ -607,3 +607,12 @@ visto que eles não se comunicam não é possível injetar o socket nas rotas
 ### Using routes with Socket.io and Express
 
 1. Foi mostrado que para cada página é necessário conectar a um socket diferente que executará os eventos para ela
+
+### Using Redis for Multi-Server Socket.io
+
+Socket.io tem conhecimento de todos os socket conectados a um servidor, porém em casos em que mais de um 
+servidor servem uma aplicação os sockets acabam não integrando as conexões.
+
+Esse é o problema tratado nesta aula.
+
+A solução é usar o io.adapter para compartilhar os dados entre sockets através do redis.
