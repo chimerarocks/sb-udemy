@@ -616,3 +616,7 @@ servidor servem uma aplicação os sockets acabam não integrando as conexões.
 Esse é o problema tratado nesta aula.
 
 A solução é usar o io.adapter para compartilhar os dados entre sockets através do redis.
+
+### Out of Process Messaging
+
+Foi mostrado como um processo fora do chat pode enviar uma mensagem para as rooms através da linha de comando
