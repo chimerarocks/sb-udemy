@@ -515,3 +515,8 @@ redis:6379> publish test 'Is anyone there?'
 ### Messaging
 
 Foi iniciado apps em portas diferentes para mostrar como se comunicam através do redis
+
+### Store Complex Data
+
+1. foi criado um objeto redis para que adicionar promises a biblioteca
+2. foi criado uma api com indices
