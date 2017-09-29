@@ -544,3 +544,14 @@ Foi iniciado apps em portas diferentes para mostrar como se comunicam através d
 ### Simple Socket.io application
 
 1. foi criado um app para mostrar a comunicação entre um server e um client
+
+### Interacting with another browser
+
+1. foi criado um app para mostrar a comunicação entre um browser e outro
+através de abas, cada aba representa um browser
+
+a diferença entre socket e io é que o socket se refere somente ao socket que emitiu o evento
+, enquanto o io é o servidor então ele emitirá a todos os sockets
+
+o único problema nesta abordagem é que o comunicação e emitido também para o servidor,
+ou seja, ele está recebendo as mesmas mengagens como fosse um client
