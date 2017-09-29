@@ -1,3 +1,5 @@
+## redis cli
+
 git do curso https://github.com/johanan/Build-Complex-Express-Sites-with-Redis-and-Socket.io/
 
 ### REDIS_CLI
@@ -508,6 +510,8 @@ redis:6379> publish test 'Is anyone there?'
 3) "Is anyone there?"
 ```
 
+## app
+
 ### Simples Redis Integration
 
 1. foi criado uma aplicação em node que imita o redis-cli
@@ -529,6 +533,8 @@ Foi iniciado apps em portas diferentes para mostrar como se comunicam através d
     
     * http://localhost:8080/dog/latest
     * http://localhost:8080/dog/any
+
+## geo-app    
     
 ### Geospatial Indexes
 
@@ -540,6 +546,8 @@ Foi iniciado apps em portas diferentes para mostrar como se comunicam através d
 
 1. foi criado um app para mostrar em log a conexão entre o server e o client por um socket
     * para conectar entre no inspector e chame a função io()
+
+## socketio-app
      
 ### Simple Socket.io application
 
@@ -565,6 +573,8 @@ conectadas menos o socket que envia
 
 1. foi mostrado como usar o disconnect para mostrar quem saiu da sala, bem como 
 exibir mensagem quando ocorrer um erro.
+
+## roomed-app
 
 ### What Are Rooms?
 
@@ -592,6 +602,8 @@ Namespaces:
 Quando usar namespace ou rooms? Namespaces devem ser usados quando há distinção total de métodos, conexões e eventos. 
 Rooms fazem sentido quando você precisa apenas separar os clientes em espaços privados.
 
+## final-app
+
 ### Share State Between Socket.io and Express
 
 Embora os dois framworks estejam no node, eles não se comunicam, por isso é necessário uma integração
@@ -607,6 +619,8 @@ visto que eles não se comunicam não é possível injetar o socket nas rotas
 ### Using routes with Socket.io and Express
 
 1. Foi mostrado que para cada página é necessário conectar a um socket diferente que executará os eventos para ela
+
+## mult-server-app
 
 ### Using Redis for Multi-Server Socket.io
 
