@@ -561,3 +561,7 @@ ou seja, ele está recebendo as mesmas mengagens como fosse um client
 1. Foi criado um app para que mostre como enviar mensagens para todos os sockets
 conectadas menos o socket que envia
 
+### Using the disconnect event
+
+2. foi mostrado como usar o disconnect para mostrar quem saiu da sala, bem como 
+exibir mensagem quando ocorrer um erro.
