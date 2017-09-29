@@ -523,6 +523,15 @@ Foi iniciado apps em portas diferentes para mostrar como se comunicam através d
 
 ### Store Complex Data with Sorted Sets
 
-http://localhost:8080/dog/latest
+
 1. foi refatorado o objeto redis.
 2. foi criado uma api para cães de modo que possa ser selecionado por ordenação de acordo com o tempo da visulização
+    
+    * http://localhost:8080/dog/latest
+    * http://localhost:8080/dog/any
+    
+### Geospatial Indexes
+
+1. foi criado um app de localização geoespacial
+    * http://localhost:8080/around/:long/:lat/:miles
+    * http://localhost:8080/aroundsb/:miles
