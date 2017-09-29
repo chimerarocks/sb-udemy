@@ -584,3 +584,10 @@ Namespaces:
 ### Create a Simple Rooms Application
 
 1. Foi criada uma aplicação que separa um chat entre salas
+
+### Create a Simple Namespace Application
+
+1. Foi mostrado como dois namespaces não se comunicam
+
+Quando usar namespace ou rooms? Namespaces devem ser usados quando há distinção total de métodos, conexões e eventos. 
+Rooms fazem sentido quando você precisa apenas separar os clientes em espaços privados.
