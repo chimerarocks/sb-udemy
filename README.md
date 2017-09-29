@@ -598,3 +598,8 @@ Embora os dois framworks estejam no node, eles não se comunicam, por isso é ne
 
 1. Foi mostrado como integrar o estado da aplicação com o socket.io e o express
 2. Foi mostrado na aplicação que quando a página é atualizada o brower salva o estado e lembra o nome 
+
+### One Problem with Socket.io and Express
+
+1. Foi criado um app para mostrar como a integração entre socket.io e express é complicado, 
+visto que eles não se comunicam não é possível injetar o socket nas rotas
