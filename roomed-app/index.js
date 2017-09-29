@@ -10,11 +10,22 @@ var io = socketio(server);
 
 app.use(express.static('static'));
 
-var namespace = io.of('/namespace');
+io.on('connection', (socket) => {
+  socket.on('room.join', (room) => {
+    console.log(socket.rooms);
+    Object.keys(socket.rooms).filter((r) => r != socket.id)
+      .forEach((r) => socket.leave(r));
 
-namespace.on('connection', (socket) => {
-  namespace.emit('event', 'Connected to Namespace');
-  //this is a different namespace
-  io.emit('event', 'normal');
+    setTimeout(() => {
+      socket.join(room);
+      socket.emit('event', 'Joined room ' + room);
+      socket.broadcast.to(room).emit('event', 'Someone joined room ' + room);
+    }, 0);
+  })
+
+  socket.on('event', (e) => {
+    socket.broadcast.to(e.room).emit('event', e.name + ' says hello!');
+  });
+
 });
 // Ao executar este código é necessário estar no diretório deste app por causa do static do express

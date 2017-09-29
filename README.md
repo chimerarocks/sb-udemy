@@ -580,3 +580,7 @@ Namespaces:
 * Pode criar módulos
 * Cria um namespace para eventos, como na programação
 * É possível ainda usar rooms dentro dos namespaces
+
+### Create a Simple Rooms Application
+
+1. Foi criada uma aplicação que separa um chat entre salas
