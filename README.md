@@ -535,3 +535,8 @@ Foi iniciado apps em portas diferentes para mostrar como se comunicam através d
 1. foi criado um app de localização geoespacial
     * http://localhost:8080/around/:long/:lat/:miles
     * http://localhost:8080/aroundsb/:miles
+    
+### Installing Socket.io
+
+1. foi criado um app para mostrar em log a conexão entre o server e o client por um socket
+    * para conectar entre no inspector e chame a função io() 
