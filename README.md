@@ -188,3 +188,7 @@ docker build -t [tag] [path do Dockerfile]
 ```
 docker run --name [nome] -it -p [host]:[container] -v [host]:[container] [image]
 ```
+7. removendo todos as imagens por tag
+```
+sudo docker image rm $(sudo docker images | grep '<none>' | tr -s ' ' | cut -d ' ' -f 3)
+```
