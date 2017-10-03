@@ -192,3 +192,39 @@ docker run --name [nome] -it -p [host]:[container] -v [host]:[container] [image]
 ```
 sudo docker image rm $(sudo docker images | grep '<none>' | tr -s ' ' | cut -d ' ' -f 3)
 ```
+8. Criando um container para desenvolvimento
+Dockerfile
+```
+FROM ruby:2.4.2-jessie
+
+RUN curl -sL https://deb.nodesource.com/setup_6.x > build
+
+RUN /bin/bash build
+
+RUN apt-get install nodejs
+
+RUN gem install rails bundler
+
+VOLUME /log
+WORKDIR /app
+
+ENTRYPOINT ["/bin/bash"]
+```
+scripts/app.sh
+```
+#!/bin/sh
+
+bundle install
+ln -s /app/log /log
+rails s
+```
+
+iniciando app
+```
+sudo docker run --name app -v $(pwd):/app -p 8000:3000 udemy-rails ./scripts/app.sh
+```
+
+checando log
+```
+sudo docker run --rm -it --volumes-from=app debian tail -f /log/log/development.log
+```
