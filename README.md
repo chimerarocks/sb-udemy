@@ -74,6 +74,67 @@ docker container run -p 8080:80 ex-build-copy
 
 ### Uso das instruções para execução do container (Parte 1)
 
+Esta aula é baseada na pasta build-dev no repositório do curso.
+Crie um Dockerfile com o seguinte conteúdo:
+O interessante deste Dockerfile é que ele vai permitir a visualização dos logs de dentro do container por um outro container
+O comando workdir define que o container será iniciado dentro desta pasta
+```
+FROM python:3.6
+LABEL maintainer 'Aluno Cod3r <aluno at cod3r.com.br>'
+
+RUN useradd www && \
+    mkdir /app && \
+    mkdir /log && \
+    chown www /log
+
+USER www
+VOLUME /log
+WORKDIR /app
+EXPOSE 8000
+
+ENTRYPOINT ["/usr/local/bin/python"]
+CMD ["run.py"]
+```
+docker image build -t ex-build-dev .
+docker container run -it -v $(pwd):/app -p 8080:8000 --name python-server ex-build-dev
+docker container run -it --volumes-from=python-server debiat cat /log/http-server.log
+
+## Redes
+
+### Visão Geral e Tipos de Redes
+None Network: sem rede
+Bridge Network (padrão): todos os containers se conectam a bridge que faz a ponte com a internet do host
+Host Network: Sem a camada bridge fazendo que os containers compartilhem da mesma rede que o host
+Overlay Network (Swarm)
+
+docker network ls
+
+### Rede Tipo None (Sem Rede)
+
+Cria um container sem comunicação exterior
+docker container run --rm --net none debian -c "ifconfig"
+
+### Rede Tipo Bridge
+
+Veja a rede que está disponivel no bridge
+docker network inspect bridge
+No campo "Config" você pode ver qual o range disponivel pela bridge
+Agora se você criar dois containers verá que eles receberão ips dentro desse range
+Você pode também observar que você pode pingar o endereço do outro container que está na bridge pelo container
+
+Criando uma nova rede tipo bridge
+
+docker network create --driver bridge rede_nova
+docker network ls
+docker network inspect rede_nova -> pra ver o range da nova rede
+docker network connect bridge container3 -> conecta o container a outra rede
+docker network disconnect bridge container3 -> disconecta o container a outra rede
+
+### Rede Tipo Host
+
+O modo com menor nivel de proteção, mas com mais velocidade.
+docker container run -d --name container4 --net host alpine sleep 1000
+docker container exec -it container4 ifconfig -> você verá que o container possui as mesmas interfaces de rede que o host
 
 ## Docker Mongo Rest
 
