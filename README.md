@@ -136,6 +136,30 @@ O modo com menor nivel de proteção, mas com mais velocidade.
 docker container run -d --name container4 --net host alpine sleep 1000
 docker container exec -it container4 ifconfig -> você verá que o container possui as mesmas interfaces de rede que o host
 
+### Configurando Ambiente com Compose
+Este capitulo é baseado no diretorio node-mongo-compose do repositório do curso
+crie um docker-composer.yml com o seguinte conteudo
+```
+version: '3'
+services:
+  db: -> este é o nome do serviço que será chamado pelo backend ('mongodb://db/mydb')
+    image: mongo:3.4
+  backend:
+    image: node:8.1
+    volumes:
+      - ./backend:/backend -> associando a pasta local ao que será criado no container
+    ports:
+      - 3000:3000
+    command: bash -c "cd /backend && npm i && node app"
+  frontend:
+    image: nginx:1.13
+    volumes:
+      - ./frontend:/usr/share/nginx/html/ -> redirecionar onde o nginx busca o arquivo html
+    ports:
+      - 80:80
+```
+
+
 ## Docker Mongo Rest
 
 ### Passos utilizados para gerar o backend
