@@ -1,6 +1,80 @@
 
 Repositório do curso: https://github.com/cod3rcursos/curso-docker
 
+## Uso básico do docker
+
+### Mapear portas dos containers
+docker container run -p 8080:80 nginx
+
+### Mapear diretórios para o container
+docker container run -p 8080:80 -v $(pwd)/html:/var/www/html nginx
+
+### Rodar um servidor em background
+docker container -d --name ex-daemon-basic run -p 8080:80 -v $(pwd)/html:/var/www/html nginx
+
+### Gerenciar o container em background
+docker container start ex-daemon-basic
+docker container restart ex-daemon-basic
+docker container stop ex-daemon-basic
+
+### Manipulação de containers em modo daemon
+docker container ps -a
+docker container logs ex-daemon-basic
+docker container inspect ex-daemon-basic
+docker container exec ex-daemon-basic uname -or
+
+## Deixando de Ser Apenas um Usuário
+
+Imagens são classes, containers são objetos
+
+### Docker Hub × Docker Registry
+
+Docker Registry é um repositório privado de imagens x Docker Hub é um repositório público (Saas) na frente de um Docker Registry
+
+### Meu primeiro build
+
+Crie um Dockerfile com o seguinte conteúdo:
+```
+FROM nginx:latest
+
+RUN echo '<h1>Hello World!</h1>' > /usr/share/nginx/html/index.html
+```
+docker image build -t ex-simple-build .
+docker container run -p 8080:80 ex-simple-build
+
+### Uso das instruções de preparação
+
+Crie um Dockerfile com o seguinte conteúdo:
+```
+FROM debian
+LABEL mantainer 'Aluno'
+
+ARG S3_BUCKET=files
+ENV S3_BUCKET=${S3_BUCKET}
+
+```
+docker image build -t ex-build-arg .
+docker container run -p 8080:80 ex-build-arg bash -c 'echo $S3_BUCKET'
+>files
+docker image build --build-arg S3_BUCKET=myapp -t ex-build-arg .
+docker container run -p 8080:80 ex-build-arg bash -c 'echo $S3_BUCKET'
+>myapp
+
+### Uso das instruções de povoamento
+Crie um Dockerfile com o seguinte conteúdo:
+```
+FROM debian
+LABEL mantainer 'Aluno'
+
+RUN echo '<h1>Sem conteudo</h1>' > /usr/share/nginx/html/conteudo.html
+COPY *.html /usr/shar/nginx/html/
+```
+docker image build -t ex-build-copy .
+docker container run -p 8080:80 ex-build-copy
+
+### Uso das instruções para execução do container (Parte 1)
+
+
 ## Docker Mongo Rest
 
 ### Passos utilizados para gerar o backend
