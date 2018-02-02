@@ -22,6 +22,7 @@ docker container ps -a
 docker container logs ex-daemon-basic
 docker container inspect ex-daemon-basic
 docker container exec ex-daemon-basic uname -or
+entrar em um container em background: docker exec -it <mycontainer> bash
 
 ## Deixando de Ser Apenas um Usuário
 
