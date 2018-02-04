@@ -1,6 +1,19 @@
 
 Repositório do curso: https://github.com/cod3rcursos/curso-docker
 
+# ATENÇÃO #
+
+## Algumas dicas ao lidar com aplicações PHP
+o mysql deve ter um volume de dados, para não demorar mais que outros processos
+
+o container apache deve rodar por ultimo o apache-foreground para ficar como daemon
+
+o local onde o apache busca o arquivo padrão deve ser mudado
+
+para a instalação do composer funcionar corretamente ele deve ser rodado com CMD e não como RUN
+
+pelo fato de já ser necessário rodar o CMD para o apache, é necessário colocar os dois comandos em uma única linha
+
 ## Uso básico do docker
 
 ### Mapear portas dos containers
