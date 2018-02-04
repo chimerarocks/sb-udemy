@@ -43,11 +43,6 @@ docker container exec ex-daemon-basic uname -or
 
 entrar em um container em background: docker exec -it <mycontainer> bash
 
-## Linkando containers na prático com Wordpress (atualização)
-docker run -d --name-dbserver -e "MYSQL_ROOT_PASSWORD=root" -e "MYSQL_DATABASE=wordpress" mysql
-
-docker run -d --name=wordpress --link dbserver:mysql wordpress
-> nesse caso dbserver será mapeado para o container wordpress como 'mysql'
 
 ## Deixando de Ser Apenas um Usuário
 
@@ -440,3 +435,64 @@ checando log
 ```
 sudo docker run --rm -it --volumes-from=app debian tail -f /log/log/development.log
 ```
+# ATUALIZAÇÕES
+
+## Linkando containers na prático com Wordpress
+docker run -d --name-dbserver -e "MYSQL_ROOT_PASSWORD=root" -e "MYSQL_DATABASE=wordpress" mysql
+
+docker run -d --name=wordpress --link dbserver:mysql wordpress -p 8085:80
+> nesse caso dbserver será mapeado para o container wordpress como 'mysql'
+
+## Publicando sua imagem
+
+docker login
+
+docker tag avancandocomdocker:v2 jacson/web:v1
+>(docker tag name:version user/repo)
+
+docker push jacson/web:v1
+
+## Services: criação de uma estrutura com várias instâncias
+
+
+```yaml
+version: "3"
+services:
+    web:
+        image: jacksonlima91/web:v1
+        deploy:
+            replicas: 5 # quantas instâncias serão iniciadas
+            resources: 
+                limits:
+                    cpus: "0.1" # limite em todos os núcleos
+                    memory: 50M # limite de memória em todos os núcleos
+            restart_policy:
+                condition: on-failure # reiniciara somente em falhas
+        ports:
+            - "80:80"
+        networks:
+            - webnet
+networks:
+    webnet:
+```
+
+## Modo swarm
+
+Gerenciamento de clusters, quando executa o docker sem o modo swarm você osquestra containers quando você executa em modo swarm você orquestra serviços
+
+Quando você gerencia mais uma instância de containers, nesse caso você lida com nós.
+
+### iniciando o swarm
+
+docker swarm init
+
+### implantar a aplicação no modo swarm
+Aqui ele irá fazer o load-balance
+
+docker stack deploy -c docker-compose.yml app-scale
+
+docker stack ps app-scale -> para ver as os nós
+
+docker-machine ls -> para saber o ip da docker-machine que é onde o stack está sendo publicado
+
+sempre que fizer alguma alteração no compose basta executar o stack deploy sem matar a stack
