@@ -16,6 +16,10 @@ pelo fato de já ser necessário rodar o CMD para o apache, é necessário coloc
 
 ## Uso básico do docker
 
+### Iniciar container em modo interativo
+
+docker run -it [image] bash
+
 ### Mapear portas dos containers
 docker container run -p 8080:80 nginx
 
