@@ -27,14 +27,20 @@ docker container -d --name ex-daemon-basic run -p 8080:80 -v $(pwd)/html:/var/ww
 
 ### Gerenciar o container em background
 docker container start ex-daemon-basic
+
 docker container restart ex-daemon-basic
+
 docker container stop ex-daemon-basic
 
 ### Manipulação de containers em modo daemon
 docker container ps -a
+
 docker container logs ex-daemon-basic
+
 docker container inspect ex-daemon-basic
+
 docker container exec ex-daemon-basic uname -or
+
 entrar em um container em background: docker exec -it <mycontainer> bash
 
 ## Deixando de Ser Apenas um Usuário
@@ -54,6 +60,7 @@ FROM nginx:latest
 RUN echo '<h1>Hello World!</h1>' > /usr/share/nginx/html/index.html
 ```
 docker image build -t ex-simple-build .
+
 docker container run -p 8080:80 ex-simple-build
 
 ### Uso das instruções de preparação
@@ -68,10 +75,15 @@ ENV S3_BUCKET=${S3_BUCKET}
 
 ```
 docker image build -t ex-build-arg .
+
 docker container run -p 8080:80 ex-build-arg bash -c 'echo $S3_BUCKET'
+
 >files
+
 docker image build --build-arg S3_BUCKET=myapp -t ex-build-arg .
+
 docker container run -p 8080:80 ex-build-arg bash -c 'echo $S3_BUCKET'
+
 >myapp
 
 ### Uso das instruções de povoamento
@@ -84,13 +96,17 @@ RUN echo '<h1>Sem conteudo</h1>' > /usr/share/nginx/html/conteudo.html
 COPY *.html /usr/shar/nginx/html/
 ```
 docker image build -t ex-build-copy .
+
 docker container run -p 8080:80 ex-build-copy
 
 ### Uso das instruções para execução do container (Parte 1)
 
 Esta aula é baseada na pasta build-dev no repositório do curso.
+
 Crie um Dockerfile com o seguinte conteúdo:
+
 O interessante deste Dockerfile é que ele vai permitir a visualização dos logs de dentro do container por um outro container
+
 O comando workdir define que o container será iniciado dentro desta pasta
 ```
 FROM python:3.6
@@ -110,15 +126,20 @@ ENTRYPOINT ["/usr/local/bin/python"]
 CMD ["run.py"]
 ```
 docker image build -t ex-build-dev .
+
 docker container run -it -v $(pwd):/app -p 8080:8000 --name python-server ex-build-dev
+
 docker container run -it --volumes-from=python-server debiat cat /log/http-server.log
 
 ## Redes
 
 ### Visão Geral e Tipos de Redes
 None Network: sem rede
+
 Bridge Network (padrão): todos os containers se conectam a bridge que faz a ponte com a internet do host
+
 Host Network: Sem a camada bridge fazendo que os containers compartilhem da mesma rede que o host
+
 Overlay Network (Swarm)
 
 docker network ls
@@ -126,32 +147,44 @@ docker network ls
 ### Rede Tipo None (Sem Rede)
 
 Cria um container sem comunicação exterior
+
 docker container run --rm --net none debian -c "ifconfig"
 
 ### Rede Tipo Bridge
 
 Veja a rede que está disponivel no bridge
+
 docker network inspect bridge
+
 No campo "Config" você pode ver qual o range disponivel pela bridge
+
 Agora se você criar dois containers verá que eles receberão ips dentro desse range
+
 Você pode também observar que você pode pingar o endereço do outro container que está na bridge pelo container
 
 Criando uma nova rede tipo bridge
 
 docker network create --driver bridge rede_nova
+
 docker network ls
+
 docker network inspect rede_nova -> pra ver o range da nova rede
+
 docker network connect bridge container3 -> conecta o container a outra rede
+
 docker network disconnect bridge container3 -> disconecta o container a outra rede
 
 ### Rede Tipo Host
 
 O modo com menor nivel de proteção, mas com mais velocidade.
+
 docker container run -d --name container4 --net host alpine sleep 1000
+
 docker container exec -it container4 ifconfig -> você verá que o container possui as mesmas interfaces de rede que o host
 
 ### Configurando Ambiente com Compose
 Este capitulo é baseado no diretorio node-mongo-compose do repositório do curso
+
 crie um docker-composer.yml com o seguinte conteudo
 ```
 version: '3'
