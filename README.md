@@ -43,6 +43,12 @@ docker container exec ex-daemon-basic uname -or
 
 entrar em um container em background: docker exec -it <mycontainer> bash
 
+## Linkando containers na prático com Wordpress (atualização)
+docker run -d --name-dbserver -e "MYSQL_ROOT_PASSWORD=root" -e "MYSQL_DATABASE=wordpress" mysql
+
+docker run -d --name=wordpress --link dbserver:mysql wordpress
+> nesse caso dbserver será mapeado para o container wordpress como 'mysql'
+
 ## Deixando de Ser Apenas um Usuário
 
 Imagens são classes, containers são objetos
