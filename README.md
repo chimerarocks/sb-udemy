@@ -3,6 +3,11 @@ Repositório do curso: https://github.com/cod3rcursos/curso-docker
 
 # ATENÇÃO #
 
+## Erros
+
+### mesmo não havendo containers aparece: container is marked for removal and cannot be started
+docker-compose down (talvez seja necessário reiniciar a máquina)
+
 ## Algumas dicas ao lidar com aplicações PHP
 o mysql deve ter um volume de dados, para não demorar mais que outros processos
 
