@@ -21,6 +21,11 @@ pelo fato de já ser necessário rodar o CMD para o apache, é necessário coloc
 
 ## Uso básico do docker
 
+### Passando variavel do composer para dockerfile
+ARG APACHE_DOCUMENT_ROOT
+ENV APACHE_DOCUMENT_ROOT ${APACHE_DOCUMENT_ROOT:-/code}
+RUN echo $APACHE_DOCUMENT_ROOT
+
 ### Iniciar container em modo interativo
 
 docker run -it [image] bash
